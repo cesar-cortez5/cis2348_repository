@@ -1,3 +1,6 @@
+#Cesar Cortez
+#PSID = 1836168
+
 counter = 1
 number_list = []
 
