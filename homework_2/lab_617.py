@@ -1,3 +1,6 @@
+#Cesar Cortez
+#PSID = 1836168
+
 password_weak = input("\n")
 password = ""
 characters = {"i": "!",
