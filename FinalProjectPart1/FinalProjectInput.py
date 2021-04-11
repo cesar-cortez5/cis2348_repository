@@ -24,6 +24,8 @@ class Item:
                     if i[0] == k[0] and i[0] == k[0] and i[0] == j[0]:
                         #Making a list of the elements and appending it to row_list
                         row_list.append([i[0], i[1], i[2], j[1], k[1], i[3]])
+                        #Sorting alphabetically by manufacturer
+                        row_list.sort(key=lambda x: x[1])  
                         #Writing into the file "FullInventory.csv"
                         with open('FullInventory.csv', 'w', newline='') as file:
                             for l in row_list:
