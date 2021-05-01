@@ -96,9 +96,41 @@ class Item:
                                     continue
 
     def customer_query(self, query):
-        print(query)
+        full_inventory_list = []
+        damaged_list = []
+        for i in self.manufacturer:
+            for j in self.price:
+                for k in self.service_date:
+                    if i[0] == k[0] and i[0] == k[0] and i[0] == j[0]:
+                        full_inventory_list.append([i[0], i[1], i[2], j[1], k[1], i[3]])
 
-        pass
+        for i in full_inventory_list:
+            if i[5] == "damaged":
+                damaged_list.append(i)
+
+        
+
+
+        item_in_inv = False
+        #Finished checking for manufacturer and item type. Need to add to check for different item types/manufactures in one string (lenovo apple computer, dell phone laptop,)
+        for i in full_inventory_list:
+            for j in damaged_list:
+                manufacturer = i[1].lower()
+                item_type = i[2].lower()
+                if (manufacturer in query) and (item_type in query) and (i[0] != j[0]):
+                    item_in_inv = True
+                
+        
+        if item_in_inv:
+            print(f"Your item is: {i[0]}, {manufacturer}, {item_type}, {i[3]}")
+            print(f"You may, also, consider: ")
+        else:
+            print(f"No such item in inventory")
+                    
+
+
+
+        
 
 
     
@@ -145,6 +177,7 @@ if __name__ == "__main__":
     Item1.past_service()
     Item1.damaged_inventory()
     Item1.item_type_inventory()
+    Item1.damaged_inventory()
     '''
 
 
