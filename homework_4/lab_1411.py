@@ -1,3 +1,6 @@
+#Cesar Cortez
+#PSID = 1836168
+
 def selection_sort_descend_trace(numbers):
     for i in range(len(numbers) - 1):
         index_largest = i

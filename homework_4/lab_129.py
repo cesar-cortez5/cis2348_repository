@@ -1,3 +1,6 @@
+#Cesar Cortez
+#PSID = 1836168
+
 parts = input().split()
 name, age = parts[0], parts[1]
 
