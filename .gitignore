@@ -1,2 +1,6 @@
 venv/
 .idea/
+.DamagedInventory
+.ManufacturerList
+.PriceList
+.ServiceDatesList
