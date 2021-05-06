@@ -2,6 +2,13 @@
 #PSID - 1836168
 
 
+'''
+Fixes - 
+Check if more than one manufacturer/item is typed
+Check to see if a similar item exists from the same manufacturer
+If there is more than two items of the same time, print the most expensive 
+'''
+
 import csv
 from datetime import datetime
 
@@ -26,8 +33,13 @@ class Item:
                             [i[0], i[1], i[2], j[1], k[1], i[3]])
 
         for i in full_inventory_list:
-            if i[5] == "damaged":
+            date = i[4]
+            date_string = datetime.strptime(date, "%m/%d/%Y")
+
+            if i[5] == "damaged" or date_string.date() < datetime.now().date():
                 damaged_list.append(i)
+
+        
 
         item_in_inv = False
         # Finished checking for manufacturer and item type. Need to add to check for different item types/manufactures in one string (lenovo apple computer, dell phone laptop,)
