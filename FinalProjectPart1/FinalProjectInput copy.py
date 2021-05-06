@@ -32,16 +32,20 @@ class Item:
         item_in_inv = False
         #Finished checking for manufacturer and item type. Need to add to check for different item types/manufactures in one string (lenovo apple computer, dell phone laptop,)
         for i in full_inventory_list:
-            for j in damaged_list:
-                manufacturer = i[1].lower()
-                item_type = i[2].lower()
-                item_id = i[0]
-                if (manufacturer in query) and (item_type in query) and (item_id != j[0]):
-                    customer_manufacturer = manufacturer
-                    customer_item_type = item_type
-                    customer_id = item_id
-                    customer_price = i[3]
-                    item_in_inv = True
+            other_items = []
+            manufacturer = i[1].lower()
+            item_type = i[2].lower()
+            item_id = i[0]
+
+            if (manufacturer in query) and (item_type in query) and (item_id != j[0]) and (i not in damaged_list):
+
+                customer_manufacturer = manufacturer
+                customer_item_type = item_type
+                customer_id = item_id
+                customer_price = i[3]
+                item_in_inv = True
+
+
 
 
         if item_in_inv:
@@ -52,10 +56,6 @@ class Item:
 
 
         
-
-
-    
-
 #Main function that opens each file, takes each row from each CSV file, and imports it to a list
 def file_opener():
     manufacturer_list = []
@@ -90,17 +90,11 @@ if __name__ == "__main__":
     #Creating an instance of an Item known as Item1
     Item1 = Item(manufacturer_list, price_list, service_dates_list)
 
-    query = input("Please enter the item type and manufacturer\n")
-    Item1.customer_query(query)
+    query = ""
 
-    '''
-    Item1.full_inventory()
-    Item1.past_service()
-    Item1.damaged_inventory()
-    Item1.item_type_inventory()
-    Item1.damaged_inventory()
-    '''
-
+    while query != "q":
+        query = input("Please enter the item type and manufacturer\n")
+        Item1.customer_query(query)
 
 
 
