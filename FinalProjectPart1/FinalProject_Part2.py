@@ -2,12 +2,6 @@
 #PSID - 1836168
 
 
-'''
-Fixes - 
-Check if more than one manufacturer/item is typed
-Check to see if a similar item exists from the same manufacturer
-If there is more than two items of the same time, print the most expensive 
-'''
 
 import csv
 from datetime import datetime
@@ -39,27 +33,35 @@ class Item:
             if i[5] == "damaged" or date_string.date() < datetime.now().date():
                 damaged_list.append(i)
 
-        
-
         item_in_inv = False
         # Finished checking for manufacturer and item type. Need to add to check for different item types/manufactures in one string (lenovo apple computer, dell phone laptop,)
+        customer_items = []
+        similar_items = []
         for i in full_inventory_list:
-            other_items = []
             manufacturer = i[1].lower()
             item_type = i[2].lower()
             item_id = i[0]
 
-            if (manufacturer in query) and (item_type in query) and (item_id != j[0]) and (i not in damaged_list):
+            if item_type in query and i not in damaged_list:
+                similar_items.append([item_id, manufacturer, item_type, i[3]])
 
-                customer_manufacturer = manufacturer
-                customer_item_type = item_type
-                customer_id = item_id
-                customer_price = i[3]
+            if (item_type in query) and (i not in damaged_list) and (manufacturer in query):
                 item_in_inv = True
+                customer_items.append([item_id, manufacturer, item_type, i[3]])
+
+            customer_items.sort(reverse=True, key=lambda x: x[3])
+            similar_items.sort(reverse=True, key=lambda x: x[3])
 
         if item_in_inv:
             print(
-                f"Your item is: {customer_id}, {customer_manufacturer}, {customer_item_type}, {customer_price}")
+                f"Your item is: {customer_items[0][0]}, {customer_items[0][1]}, {customer_items[0][2]}, {customer_items[0][3]}")
+            if len(similar_items) > 1 and customer_items[0] != similar_items[0]:
+                print(
+                    f"You may, also, consider: {similar_items[0][0]}, {similar_items[0][1]}, {similar_items[0][2]}, {similar_items[0][3]}")
+            elif len(similar_items) > 1 and customer_items[0] == similar_items[0]:
+                print(
+                    f"Your may, also, consider: {similar_items[1][0]}, {similar_items[1][1]}, {similar_items[1][2]}, {similar_items[1][3]}")
+
         else:
             print(f"No such item in inventory")
 
@@ -98,4 +100,4 @@ if __name__ == "__main__":
 
     while query != "q":
         query = input("Please enter the item type and manufacturer\n")
-        Item1.customer_query(query)
+        Item1.customer_query(query.lower())

@@ -4,3 +4,4 @@ venv/
 .ManufacturerList
 .PriceList
 .ServiceDatesList
+.vscode/
